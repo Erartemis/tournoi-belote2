@@ -1,1 +1,17 @@
+body{
+font-family: Arial;
+margin:40px;
+}
 
+.team{
+padding:8px;
+margin:5px;
+background:#eeeeee;
+display:inline-block;
+border-radius:5px;
+cursor:pointer;
+}
+
+.team:hover{
+background:#d0d0d0;
+}
