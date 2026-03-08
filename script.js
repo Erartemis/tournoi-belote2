@@ -1,4 +1,4 @@
-const sheetURL = "https://opensheet.elk.sh/https://opensheet.elk.sh/1OymoDdg0LEqvOS2K-SBzBHNEjeOK9cQIMZIf1sysQuA/Equipes/Equipes";
+const sheetURL = "https://opensheet.elk.sh/1OymoDdg0LEqvOS2K-SBzBHNEjeOK9cQIMZIf1sysQuA/Equipes";
 
 fetch(sheetURL)
   .then(response => response.json())
