@@ -52,6 +52,9 @@ groups[poule].forEach(team => {
 const row = document.createElement("div");
 row.className = "team-row";
 
+const info = document.createElement("div");
+info.className = "team-info";
+
 const name = document.createElement("div");
 name.className = "team-name";
 name.innerText = team["Nom de l’equipe"];
@@ -64,20 +67,29 @@ const manches = document.createElement("div");
 manches.className = "team-stats";
 manches.innerText = team["Manches"];
 
-row.appendChild(name);
-row.appendChild(stats);
-row.appendChild(manches);
+info.appendChild(name);
+info.appendChild(stats);
+info.appendChild(manches);
+
+row.appendChild(info);
 
 const players = document.createElement("div");
 players.className = "players";
 players.innerText = team["Joueur 1"] + " & " + team["Joueur 2"];
 
+row.appendChild(players);
+
 row.addEventListener("click", () => {
-players.classList.toggle("show");
+
+if(row.classList.contains("open")){
+row.classList.remove("open");
+}else{
+row.classList.add("open");
+}
+
 });
 
 card.appendChild(row);
-card.appendChild(players);
 
 });
 
