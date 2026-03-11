@@ -45,9 +45,6 @@ margin-bottom:10px;
 }
 
 .team-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
 background:#cfe3f6;
 padding:10px;
 border-radius:8px;
@@ -58,6 +55,12 @@ transition:0.2s;
 
 .team-row:hover{
 background:#b8d6ef;
+}
+
+.team-info{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .team-name{
@@ -72,12 +75,12 @@ font-weight:500;
 }
 
 .players{
-font-size:13px;
-color:#444;
-margin:4px 0 10px 10px;
 display:none;
+font-size:13px;
+margin-top:8px;
+color:#444;
 }
 
-.players.show{
+.team-row.open .players{
 display:block;
 }
