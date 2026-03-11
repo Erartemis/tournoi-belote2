@@ -73,10 +73,7 @@ players.className = "players";
 players.innerText = team["Joueur 1"] + " & " + team["Joueur 2"];
 
 row.addEventListener("click", () => {
-
-players.style.display =
-players.style.display === "none" ? "block" : "none";
-
+players.classList.toggle("show");
 });
 
 card.appendChild(row);
