@@ -16,9 +16,7 @@ teams.forEach(team => {
 
 const poule = team.Poule;
 
-if(!groups[poule]){
-groups[poule] = [];
-}
+if(!groups[poule]) groups[poule] = [];
 
 groups[poule].push(team);
 
@@ -47,42 +45,34 @@ header.innerHTML = `
 card.appendChild(header);
 
 /* SORT BY CLASSEMENT */
+
 groups[poule].sort((a,b) => Number(a.Classement) - Number(b.Classement));
 
 groups[poule].forEach((team,index) => {
 
-const row = document.createElement("div");
-row.className = "team-row";
-
-/* GREEN OR RED RECORD */
-const wins = Number(team["Victoires"]);
-const losses = Number(team["Defaites"]);
-
-if(wins > losses){
-row.classList.add("win");
-}
-if(losses > wins){
-row.classList.add("loss");
-}
-
-/* MEDALS */
 let medal = "";
 if(index === 0) medal = "🥇 ";
 if(index === 1) medal = "🥈 ";
 if(index === 2) medal = "🥉 ";
 
+const row = document.createElement("div");
+row.className = "team-row";
+
 row.innerHTML = `
+
 <div class="team-main">
 
 <div class="team-name">
 ${medal}${team["Nom de l’equipe"]}
 </div>
 
-<div class="team-stats">
-${team["Victoires"]} / ${team["Defaites"]}
+<div class="team-vd">
+<span class="wins">${team["Victoires"]}</span>
+/
+<span class="losses">${team["Defaites"]}</span>
 </div>
 
-<div class="team-stats">
+<div class="team-manches">
 ${team["Manches"]}
 </div>
 
@@ -93,8 +83,8 @@ ${team["Joueur 1"]} & ${team["Joueur 2"]}
 </div>
 `;
 
-row.addEventListener("click", function(){
-this.classList.toggle("open");
+row.addEventListener("click", () => {
+row.classList.toggle("open");
 });
 
 card.appendChild(row);
