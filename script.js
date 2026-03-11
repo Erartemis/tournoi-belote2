@@ -115,3 +115,37 @@ winterButton.textContent="Mode Hiver OFF";
 }
 
 });
+
+const snowContainer = document.getElementById("snow-container");
+
+function createSnowflake(){
+
+const flake = document.createElement("div");
+
+flake.classList.add("snowflake");
+flake.innerHTML="❄";
+
+flake.style.left=Math.random()*100+"vw";
+flake.style.fontSize=(Math.random()*10+8)+"px";
+
+const duration=Math.random()*5+5;
+
+flake.style.animationDuration=duration+"s";
+
+snowContainer.appendChild(flake);
+
+setTimeout(()=>{
+flake.remove();
+},duration*1000);
+
+}
+
+/* create snow continuously */
+
+setInterval(()=>{
+
+if(document.body.classList.contains("winter")){
+createSnowflake();
+}
+
+},200);
