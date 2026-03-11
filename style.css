@@ -35,13 +35,22 @@ text-align:center;
 margin-bottom:15px;
 }
 
+/* GRID ALIGNMENT */
+
+.group-header,
+.team-main{
+display:grid;
+grid-template-columns: 1fr 70px 70px;
+align-items:center;
+}
+
 .group-header{
-display:flex;
-justify-content:space-between;
 font-size:13px;
 color:#666;
 margin-bottom:10px;
 }
+
+/* TEAM ROW */
 
 .team-row{
 background:#cfe3f6;
@@ -49,60 +58,54 @@ border-radius:8px;
 margin-bottom:8px;
 cursor:pointer;
 padding:10px;
-transition:0.25s;
+transition:background 0.2s;
 }
 
 .team-row:hover{
 background:#b8d6ef;
 }
 
-.team-main{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+/* COLUMN STYLES */
 
 .team-name{
-flex:1;
 font-weight:500;
 }
 
-.team-stats{
-width:70px;
+.team-vd{
+text-align:center;
+}
+
+.team-manches{
 text-align:center;
 }
 
 /* WIN / LOSS COLORS */
 
-.team-row.win{
-background:#d6f5d6;
+.wins{
+color:#1e8e3e;
+font-weight:600;
 }
 
-.team-row.win:hover{
-background:#c0eac0;
+.losses{
+color:#d93025;
+font-weight:600;
 }
 
-.team-row.loss{
-background:#ffd6d6;
-}
-
-.team-row.loss:hover{
-background:#f3bcbc;
-}
-
-/* PLAYERS ANIMATION */
+/* PLAYERS PANEL */
 
 .players{
-max-height:0;
 opacity:0;
+transform:translateY(-6px);
+max-height:0;
 overflow:hidden;
+transition:opacity 0.2s ease, transform 0.2s ease;
 font-size:13px;
 color:#444;
-transition:max-height 0.35s ease, opacity 0.25s ease;
 }
 
 .team-row.open .players{
-max-height:60px;
 opacity:1;
+transform:translateY(0);
 margin-top:6px;
+max-height:40px;
 }
