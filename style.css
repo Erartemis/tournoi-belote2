@@ -1,29 +1,25 @@
 body{
 font-family:Arial, Helvetica, sans-serif;
-background:#f2f2f2;
+background:#121212;
+color:#e8e8e8;
 margin:40px;
-transition:background 0.4s,color 0.4s;
+transition:background 0.5s,color 0.5s;
 }
 
-h1{
+h1,h2{
 text-align:center;
-}
-
-h2{
-text-align:center;
-margin-bottom:20px;
 }
 
 /* BUTTON */
 
 #winterToggle{
 display:block;
-margin:0 auto 30px auto;
+margin:20px auto 30px auto;
 padding:10px 18px;
 border:none;
 border-radius:8px;
 cursor:pointer;
-background:#444;
+background:#2c2c2c;
 color:white;
 font-weight:bold;
 }
@@ -38,12 +34,12 @@ justify-content:center;
 }
 
 .group-card{
-background:white;
-border-radius:10px;
+background:#1e1e1e;
+border-radius:12px;
 padding:20px;
 width:300px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-transition:background 0.4s;
+box-shadow:0 8px 20px rgba(0,0,0,0.6);
+transition:all 0.5s;
 }
 
 .group-title{
@@ -53,7 +49,7 @@ text-align:center;
 margin-bottom:15px;
 }
 
-/* PERFECT GRID ALIGNMENT */
+/* GRID ALIGNMENT PERFECT */
 
 .table-row{
 display:grid;
@@ -63,30 +59,24 @@ align-items:center;
 
 .header-row{
 font-size:13px;
-color:#666;
+color:#999;
 margin-bottom:8px;
 }
 
 /* TEAM ROW */
 
 .team-row{
-background:#cfe3f6;
+background:#2a2a2a;
 border-radius:8px;
 margin-bottom:8px;
 cursor:pointer;
 padding:10px;
-transition:background 0.2s;
+transition:0.25s;
 }
 
 .team-row:hover{
-background:#b8d6ef;
+background:#3a3a3a;
 }
-
-.team-name{
-font-weight:500;
-}
-
-/* STATS */
 
 .team-vd,
 .team-manches{
@@ -94,25 +84,25 @@ text-align:center;
 }
 
 .wins{
-color:#1e8e3e;
+color:#4cd964;
 font-weight:600;
 }
 
 .losses{
-color:#d93025;
+color:#ff5c5c;
 font-weight:600;
 }
 
-/* PLAYERS */
+/* PLAYERS PANEL SMOOTH */
 
 .players{
 opacity:0;
-transform:translateY(-5px);
+transform:translateY(-6px);
 max-height:0;
 overflow:hidden;
 transition:all 0.25s ease;
 font-size:13px;
-color:#444;
+color:#bbb;
 }
 
 .team-row.open .players{
@@ -127,38 +117,34 @@ max-height:40px;
 /* ---------------- */
 
 body.winter{
-background:linear-gradient(#e8f4ff,#d6ecff);
-color:#123;
+background:linear-gradient(#0b1d2e,#153a5c);
+color:#eaf6ff;
 }
 
 body.winter .group-card{
-background:#f0f8ff;
-box-shadow:0 6px 14px rgba(0,60,120,0.15);
+background:linear-gradient(145deg,#eaf6ff,#d7ecff);
+color:#0c2c4a;
+box-shadow:
+0 10px 25px rgba(0,40,80,0.3),
+inset 0 0 8px rgba(255,255,255,0.6);
 }
 
 body.winter .team-row{
-background:#e1f0ff;
+background:rgba(255,255,255,0.5);
+backdrop-filter:blur(6px);
 }
 
 body.winter .team-row:hover{
-background:#cfe7ff;
+background:rgba(255,255,255,0.8);
 }
 
 body.winter #winterToggle{
-background:#1e5fae;
+background:#2f7edb;
 }
 
-/* snowflake decorative effect */
-
-body.winter h1::after{
-content:" ❄️";
-}
-
-body.winter .group-title::before{
-content:"❄ ";
-}
-
-/* SNOW CONTAINER */
+/* ---------------- */
+/* SNOW */
+/* ---------------- */
 
 #snow-container{
 position:fixed;
@@ -171,30 +157,25 @@ overflow:hidden;
 z-index:999;
 }
 
-/* SNOWFLAKES */
-
 .snowflake{
 position:absolute;
-top:-10px;
+top:-20px;
 color:white;
-font-size:10px;
-opacity:0.8;
-animation:fall linear forwards;
+opacity:0.85;
+animation-name:snowFall;
+animation-timing-function:linear;
+animation-fill-mode:forwards;
 }
 
-/* FALL ANIMATION */
-
-@keyframes fall{
+@keyframes snowFall{
 0%{
-transform:translateY(0) translateX(0);
+transform:translateX(var(--startX)) translateY(0) rotate(0deg);
 }
 
 100%{
-transform:translateY(110vh) translateX(40px);
+transform:translateX(calc(var(--startX) + var(--drift))) translateY(110vh) rotate(360deg);
 }
 }
-
-/* hide snow when not winter */
 
 body:not(.winter) #snow-container{
 display:none;
