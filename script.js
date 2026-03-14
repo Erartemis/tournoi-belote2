@@ -1,9 +1,14 @@
 const sheetURL =
 "https://opensheet.elk.sh/1OymoDdg0LEqvOS2K-SBzBHNEjeOK9cQIMZIf1sysQuA/Equipes";
+const matchesURL =
+"https://opensheet.elk.sh/1OymoDdg0LEqvOS2K-SBzBHNEjeOK9cQIMZIf1sysQuA/Poules";
 
 fetch(sheetURL)
 .then(response => response.json())
 .then(data => displayGroups(data));
+fetch(matchesURL)
+.then(r=>r.json())
+.then(data=>displayMatches(data));
 
 function displayGroups(teams){
 
@@ -91,6 +96,67 @@ row.classList.toggle("open");
 });
 
 card.appendChild(row);
+
+});
+
+container.appendChild(card);
+
+});
+
+}
+
+function displayMatches(matches){
+
+const container = document.getElementById("matches");
+container.innerHTML="";
+
+const groups = {};
+
+matches.forEach(match=>{
+
+const poule = match.Poule;
+
+if(!groups[poule]) groups[poule]=[];
+
+groups[poule].push(match);
+
+});
+
+Object.keys(groups).forEach(poule=>{
+
+const card = document.createElement("div");
+card.className="group-card";
+
+card.innerHTML = `<div class="group-title">Poule ${poule}</div>`;
+
+groups[poule].forEach(match=>{
+
+const block = document.createElement("div");
+block.className="match-card";
+
+block.innerHTML = `
+
+<div class="team-line">
+<div>${match["Equipe A"]}</div>
+<div class="scores">
+${match["Partie 1-score A"] || ""}
+${match["Partie 2-score A"] || ""}
+${match["Partie 3-score A"] || ""}
+</div>
+</div>
+
+<div class="team-line bold">
+<div>${match["Equipe B"]}</div>
+<div class="scores">
+${match["Partie 1-score B"] || ""}
+${match["Partie 2-score B"] || ""}
+${match["Partie 3-score B"] || ""}
+</div>
+</div>
+
+`;
+
+card.appendChild(block);
 
 });
 
