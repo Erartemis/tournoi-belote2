@@ -131,26 +131,69 @@ card.innerHTML = `<div class="group-title">Poule ${poule}</div>`;
 
 groups[poule].forEach(match=>{
 
+const sA1 = Number(match["Partie 1-score A"]);
+const sB1 = Number(match["Partie 1-score B"]);
+
+const sA2 = Number(match["Partie 2-score A"]);
+const sB2 = Number(match["Partie 2-score B"]);
+
+const sA3 = Number(match["Partie 3-score A"]);
+const sB3 = Number(match["Partie 3-score B"]);
+
+/* detect if match played */
+
+const played = !isNaN(sA1) || !isNaN(sA2) || !isNaN(sA3);
+
+/* winner */
+
+let teamAClass = "";
+let teamBClass = "";
+
+if(played){
+
+const totalA = Number(match["Score A"]);
+const totalB = Number(match["Score B"]);
+
+if(totalA > totalB) teamAClass="winner";
+if(totalB > totalA) teamBClass="winner";
+
+}
+
+/* score bold logic */
+
+function scoreSpan(a,b){
+
+if(isNaN(a)) return "";
+
+if(a>b) return `<span class="score-win">${a}</span>`;
+if(a<b) return `<span class="score-lose">${a}</span>`;
+
+return `<span>${a}</span>`;
+
+}
+
 const block = document.createElement("div");
 block.className="match-card";
 
 block.innerHTML = `
 
-<div class="team-line">
-<div>${match["Equipe A"]}</div>
+<div class="team-line ${teamAClass}">
+<div class="team-name-break">${match["Equipe A"]}</div>
+
 <div class="scores">
-${match["Partie 1-score A"] || ""}
-${match["Partie 2-score A"] || ""}
-${match["Partie 3-score A"] || ""}
+${scoreSpan(sA1,sB1)}
+${scoreSpan(sA2,sB2)}
+${scoreSpan(sA3,sB3)}
 </div>
 </div>
 
-<div class="team-line bold">
-<div>${match["Equipe B"]}</div>
+<div class="team-line ${teamBClass}">
+<div class="team-name-break">${match["Equipe B"]}</div>
+
 <div class="scores">
-${match["Partie 1-score B"] || ""}
-${match["Partie 2-score B"] || ""}
-${match["Partie 3-score B"] || ""}
+${scoreSpan(sB1,sA1)}
+${scoreSpan(sB2,sA2)}
+${scoreSpan(sB3,sA3)}
 </div>
 </div>
 
@@ -165,7 +208,6 @@ container.appendChild(card);
 });
 
 }
-
 /* WINTER MODE BUTTON */
 
 const winterButton = document.getElementById("winterToggle");
