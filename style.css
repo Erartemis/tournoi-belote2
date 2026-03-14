@@ -197,6 +197,11 @@ font-style:italic;
 font-size:13px;
 }
 
+.match-pending{
+color:#ff9f1a;
+font-weight:600;
+}
+
 /* WINTER */
 
 body.winter .match-card{
