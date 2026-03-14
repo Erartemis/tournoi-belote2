@@ -185,6 +185,18 @@ white-space:normal;
 word-break:break-word;
 }
 
+.match-to-play{
+text-align:center;
+font-size:14px;
+opacity:0.75;
+line-height:1.4;
+}
+
+.match-to-play span{
+font-style:italic;
+font-size:13px;
+}
+
 /* WINTER */
 
 body.winter .match-card{
