@@ -153,16 +153,21 @@ block.className="match-card";
 if(mA===0 && mB===0){
 
 block.innerHTML=`
-<div class="match-to-play">
-${match["Equipe A"]} vs ${match["Equipe B"]}
-<br>
-<span>Match à jouer</span>
+
+<div class="team-line">
+<div class="team-name-break">${match["Equipe A"]}</div>
+<div class="scores match-pending">Match à jouer</div>
 </div>
+
+<div class="team-line">
+<div class="team-name-break">${match["Equipe B"]}</div>
+<div class="scores"></div>
+</div>
+
 `;
 
 card.appendChild(block);
 return;
-
 }
 
 
