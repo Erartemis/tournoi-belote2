@@ -129,6 +129,17 @@ card.className="group-card";
 
 card.innerHTML = `<div class="group-title">Poule ${poule}</div>`;
 
+/* SORT : played first */
+
+groups[poule].sort((a,b)=>{
+
+const playedA = a["Score A"] !== "";
+const playedB = b["Score A"] !== "";
+
+return playedB - playedA;
+
+});
+
 groups[poule].forEach(match=>{
 
 const sA1 = Number(match["Partie 1-score A"]);
@@ -140,16 +151,31 @@ const sB2 = Number(match["Partie 2-score B"]);
 const sA3 = Number(match["Partie 3-score A"]);
 const sB3 = Number(match["Partie 3-score B"]);
 
-/* detect if match played */
+const played = match["Score A"] !== "";
 
-const played = !isNaN(sA1) || !isNaN(sA2) || !isNaN(sA3);
+const block = document.createElement("div");
+block.className="match-card";
 
-/* winner */
+/* MATCH NOT PLAYED */
 
-let teamAClass = "";
-let teamBClass = "";
+if(!played){
 
-if(played){
+block.innerHTML = `
+<div class="match-to-play">
+${match["Equipe A"]} vs ${match["Equipe B"]}
+<br>
+<span>Match à jouer</span>
+</div>
+`;
+
+card.appendChild(block);
+return;
+}
+
+/* WINNER */
+
+let teamAClass="";
+let teamBClass="";
 
 const totalA = Number(match["Score A"]);
 const totalB = Number(match["Score B"]);
@@ -157,13 +183,9 @@ const totalB = Number(match["Score B"]);
 if(totalA > totalB) teamAClass="winner";
 if(totalB > totalA) teamBClass="winner";
 
-}
-
-/* score bold logic */
+/* SCORE FORMAT */
 
 function scoreSpan(a,b){
-
-if(isNaN(a)) return "";
 
 if(a>b) return `<span class="score-win">${a}</span>`;
 if(a<b) return `<span class="score-lose">${a}</span>`;
@@ -172,29 +194,37 @@ return `<span>${a}</span>`;
 
 }
 
-const block = document.createElement("div");
-block.className="match-card";
+/* BUILD SCORE ROW */
+
+let scoreRowA = `
+${scoreSpan(sA1,sB1)}
+${scoreSpan(sA2,sB2)}
+`;
+
+let scoreRowB = `
+${scoreSpan(sB1,sA1)}
+${scoreSpan(sB2,sA2)}
+`;
+
+/* ONLY SHOW 3RD IF PLAYED */
+
+if(!(sA3===0 && sB3===0)){
+
+scoreRowA += scoreSpan(sA3,sB3);
+scoreRowB += scoreSpan(sB3,sA3);
+
+}
 
 block.innerHTML = `
 
 <div class="team-line ${teamAClass}">
 <div class="team-name-break">${match["Equipe A"]}</div>
-
-<div class="scores">
-${scoreSpan(sA1,sB1)}
-${scoreSpan(sA2,sB2)}
-${scoreSpan(sA3,sB3)}
-</div>
+<div class="scores">${scoreRowA}</div>
 </div>
 
 <div class="team-line ${teamBClass}">
 <div class="team-name-break">${match["Equipe B"]}</div>
-
-<div class="scores">
-${scoreSpan(sB1,sA1)}
-${scoreSpan(sB2,sA2)}
-${scoreSpan(sB3,sA3)}
-</div>
+<div class="scores">${scoreRowB}</div>
 </div>
 
 `;
