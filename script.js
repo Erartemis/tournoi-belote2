@@ -112,13 +112,10 @@ container.innerHTML="";
 
 const groups = {};
 
-matches.forEach(match=>{
+matches.forEach(m=>{
 
-const poule = match.Poule;
-
-if(!groups[poule]) groups[poule]=[];
-
-groups[poule].push(match);
+if(!groups[m.Poule]) groups[m.Poule]=[];
+groups[m.Poule].push(m);
 
 });
 
@@ -129,12 +126,12 @@ card.className="group-card";
 
 card.innerHTML = `<div class="group-title">Poule ${poule}</div>`;
 
-/* SORT : played first */
+/* SORT played first */
 
 groups[poule].sort((a,b)=>{
 
-const playedA = a["Score A"] !== "";
-const playedB = b["Score A"] !== "";
+const playedA = Number(a.ManchesA) + Number(a.ManchesB);
+const playedB = Number(b.ManchesA) + Number(b.ManchesB);
 
 return playedB - playedA;
 
@@ -142,25 +139,17 @@ return playedB - playedA;
 
 groups[poule].forEach(match=>{
 
-const sA1 = Number(match["Partie 1-score A"]);
-const sB1 = Number(match["Partie 1-score B"]);
-
-const sA2 = Number(match["Partie 2-score A"]);
-const sB2 = Number(match["Partie 2-score B"]);
-
-const sA3 = Number(match["Partie 3-score A"]);
-const sB3 = Number(match["Partie 3-score B"]);
-
-const played = match["Score A"] !== "";
+const mA = Number(match.ManchesA);
+const mB = Number(match.ManchesB);
 
 const block = document.createElement("div");
 block.className="match-card";
 
-/* MATCH NOT PLAYED */
+/* MATCH TO PLAY */
 
-if(!played){
+if(mA===0 && mB===0){
 
-block.innerHTML = `
+block.innerHTML=`
 <div class="match-to-play">
 ${match["Equipe A"]} vs ${match["Equipe B"]}
 <br>
@@ -170,6 +159,70 @@ ${match["Equipe A"]} vs ${match["Equipe B"]}
 
 card.appendChild(block);
 return;
+
+}
+
+/* WINNER */
+
+let classA="";
+let classB="";
+
+if(mA>mB) classA="winner";
+if(mB>mA) classB="winner";
+
+/* SCORE FUNCTION */
+
+function s(a,b){
+
+if(a>b) return `<span class="score-win">${a}</span>`;
+if(a<b) return `<span class="score-lose">${a}</span>`;
+return `<span>${a}</span>`;
+
+}
+
+/* BUILD SCORES */
+
+let rowA = `
+${s(match["Partie 1-score A"],match["Partie 1-score B"])}
+${s(match["Partie 2-score A"],match["Partie 2-score B"])}
+`;
+
+let rowB = `
+${s(match["Partie 1-score B"],match["Partie 1-score A"])}
+${s(match["Partie 2-score B"],match["Partie 2-score A"])}
+`;
+
+/* SHOW 3rd ONLY IF NEEDED */
+
+if(mA===2 && mB===1 || mA===1 && mB===2){
+
+rowA += s(match["Partie 3-score A"],match["Partie 3-score B"]);
+rowB += s(match["Partie 3-score B"],match["Partie 3-score A"]);
+
+}
+
+block.innerHTML=`
+
+<div class="team-line ${classA}">
+<div class="team-name-break">${match["Equipe A"]}</div>
+<div class="scores">${rowA}</div>
+</div>
+
+<div class="team-line ${classB}">
+<div class="team-name-break">${match["Equipe B"]}</div>
+<div class="scores">${rowB}</div>
+</div>
+
+`;
+
+card.appendChild(block);
+
+});
+
+container.appendChild(card);
+
+});
+
 }
 
 /* WINNER */
