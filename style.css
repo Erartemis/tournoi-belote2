@@ -167,6 +167,24 @@ gap:16px;
 color:#3ad1ff;
 }
 
+.team-line.winner{
+font-weight:bold;
+}
+
+.score-win{
+font-weight:bold;
+}
+
+.score-lose{
+opacity:0.6;
+}
+
+.team-name-break{
+max-width:160px;
+white-space:normal;
+word-break:break-word;
+}
+
 /* WINTER */
 
 body.winter .match-card{
