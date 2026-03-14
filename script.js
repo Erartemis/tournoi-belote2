@@ -122,15 +122,29 @@ function createSnowflake(){
 
 const flake = document.createElement("div");
 
-flake.classList.add("snowflake");
+flake.className="snowflake";
 flake.innerHTML="❄";
 
-flake.style.left=Math.random()*100+"vw";
-flake.style.fontSize=(Math.random()*10+8)+"px";
+/* RANDOM START POSITION */
 
-const duration=Math.random()*5+5;
+const startX = Math.random()*100;
+flake.style.left=startX+"vw";
 
-flake.style.animationDuration=duration+"s";
+/* RANDOM SIZE */
+
+flake.style.fontSize = (Math.random()*14+8)+"px";
+
+/* RANDOM WIND DRIFT */
+
+const drift = (Math.random()*120 - 60) + "px";
+
+flake.style.setProperty("--startX","0px");
+flake.style.setProperty("--drift", drift);
+
+/* RANDOM SPEED */
+
+const duration = Math.random()*6+6;
+flake.style.animationDuration = duration+"s";
 
 snowContainer.appendChild(flake);
 
@@ -140,7 +154,7 @@ flake.remove();
 
 }
 
-/* create snow continuously */
+/* CONTINUOUS SNOW */
 
 setInterval(()=>{
 
@@ -148,4 +162,4 @@ if(document.body.classList.contains("winter")){
 createSnowflake();
 }
 
-},200);
+},120);
