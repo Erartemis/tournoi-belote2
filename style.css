@@ -168,11 +168,15 @@ color:#3ad1ff;
 }
 
 .team-line.winner{
-font-weight:bold;
+font-weight:600;
+}
+
+.team-line.winner .scores span{
+font-weight:400;
 }
 
 .score-win{
-font-weight:bold;
+font-weight:700;
 }
 
 .score-lose{
@@ -199,7 +203,7 @@ font-size:13px;
 
 .match-pending{
 color:#ff9f1a;
-font-weight:600;
+font-weight:100;
 }
 
 /* WINTER */
